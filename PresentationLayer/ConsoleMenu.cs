@@ -31,8 +31,14 @@ namespace PresentationLayer
                         case 2:
                             AccountCreate();
                             break;
-
+                        default:
+                            Console.WriteLine("Unknown command, try again");
+                            break;
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, try again");
                 }
             }
         }
@@ -59,21 +65,97 @@ namespace PresentationLayer
                 if (parsedSuccesfully)
                 {
                     Account current = accounts[input - 1];
-                    Console.WriteLine(current.Name);
-                    Console.WriteLine("Current balance: " + current.CurrentBalance);
-                    Console.WriteLine("Enter 1 to see all transactions");
-                    Console.WriteLine("2 to see incomes and expenses by category");
-                    Console.WriteLine("3 to add income");
-                    Console.WriteLine("4 to spend expense");
-                    Console.WriteLine("5 to transfer money between your accounts");
-                    Console.WriteLine("0 to go back");
+                    bool looping = true;
+                    while (looping)
+                    {
+                        Console.WriteLine(current.Name);
+                        Console.WriteLine("Current balance: " + current.CurrentBalance);
+                        Console.WriteLine("Enter 1 to see all transactions");
+                        Console.WriteLine("2 to see incomes and expenses by category");
+                        Console.WriteLine("3 to add income");
+                        Console.WriteLine("4 to add expense");
+                        Console.WriteLine("5 to transfer money between your accounts");
+                        Console.WriteLine("9 to delete this account");
+                        Console.WriteLine("0 to go back");
+                        int action;
+                        bool success = int.TryParse(Console.ReadLine(), out action);
+                        if (success)
+                        {
+                            switch (action)
+                            {
+                                case 1:
+                                    DisplayTransactions(current);
+                                    break;
+                                case 2:
+                                    DisplayCategories(current); 
+                                    break;
+                                case 3:
+                                    AddIncome(current);
+                                    break;
+                                case 4:
+                                    AddExpense(current);
+                                    break;
+                                case 5:
+                                    TransferBetweenAccounts(current);
+                                    break;
+                                case 9: 
+                                    DeleteAccount(current);
+                                    break;
+                                case 0:
+                                    looping = false;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input, try again");
+                        }
+                    }
                 }
+                else
+                {
+                    Console.WriteLine("Invalid input, try again");
+                }
+                
             }
         }
 
         private void AccountCreate()
         {
-            //TODO
+            Console.WriteLine("Creating account");
+            Console.WriteLine("Enter account name: ");
+            string input = Console.ReadLine();
+            _service.AddAccount
+        }
+
+        private void DisplayTransactions(Account current)
+        {
+            //todo
+        }
+
+        private void DisplayCategories(Account current)
+        {
+            //todo
+        }
+
+        private void AddIncome(Account current)
+        {
+            //todo
+        }
+
+        private void AddExpense(Account current)
+        {
+            //todo
+        }
+
+        private void TransferBetweenAccounts(Account current)
+        {
+            //todo
+        }
+
+        private void DeleteAccount(Account current)
+        {
+            //todo
         }
     }
 }

@@ -14,5 +14,6 @@ namespace BusinessLogicLayer.Services
         void AddIncome(Account recipient, string Category, decimal amount);
         void AddExpense(Account sender, string Category, decimal amount);
         void TransferBetweenAccounts(Account sender, Account recipient, decimal amount);
+        void AddAccount(Account account);
     }
 }

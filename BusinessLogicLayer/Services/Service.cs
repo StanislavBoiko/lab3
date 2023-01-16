@@ -82,5 +82,10 @@ namespace BusinessLogicLayer.Services
             _accountService.UpdateAccount(sender);
             _accountService.UpdateAccount(recipient);
         }
+
+        public void AddAccount(Account account)
+        {
+            _accountService.AddAccount(account);
+        }
     }
 }
