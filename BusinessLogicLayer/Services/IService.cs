@@ -15,7 +15,11 @@ namespace BusinessLogicLayer.Services
         void AddExpense(Account sender, string Category, decimal amount);
         void TransferBetweenAccounts(Account sender, Account recipient, decimal amount);
         void AddAccount(Account account);
-        void GetIncomes(Account recipient);
-        void GetExpenses(Account sender);
+        IEnumerable<Transaction> GetIncomes(Account recipient);
+        IEnumerable<Transaction> GetExpenses(Account sender);
+
+        Dictionary<string, decimal> GetCategories(Account account);
+
+
     }
 }

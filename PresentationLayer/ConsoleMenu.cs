@@ -75,7 +75,6 @@ namespace PresentationLayer
                         Console.WriteLine("3 to add income");
                         Console.WriteLine("4 to add expense");
                         Console.WriteLine("5 to transfer money between your accounts");
-                        Console.WriteLine("9 to delete this account");
                         Console.WriteLine("0 to go back");
                         int action;
                         bool success = int.TryParse(Console.ReadLine(), out action);
@@ -97,9 +96,6 @@ namespace PresentationLayer
                                     break;
                                 case 5:
                                     TransferBetweenAccounts(current);
-                                    break;
-                                case 9: 
-                                    DeleteAccount(current);
                                     break;
                                 case 0:
                                     looping = false;
@@ -139,8 +135,22 @@ namespace PresentationLayer
             while (looping)
             {
                 Console.WriteLine("Enter 1 to see incoming transactions");
-                Console.WriteLine("Enter 2 to see outcoming transactions");
+                Console.WriteLine("2 to see outcoming transactions");
+                Console.WriteLine("0 to go back");
+                int input;
+                bool parsedSuccessfully = int.TryParse(Console.ReadLine(), out input);
+                if (parsedSuccessfully)
+                {
+                    switch(input)
+                    {
+                        case 1:
 
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, try again");
+                }
             }
         }
 

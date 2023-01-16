@@ -71,7 +71,7 @@ namespace BusinessLogicLayer.Services
                 SenderId = sender.Id,
                 Recipient = recipient,
                 RecipientId = recipient.Id,
-                DateTime = DateTime.UtcNow
+                Category = "Transfer from " + sender.Name + " to " + recipient.Name
             };
 
             sender.CurrentBalance -= amount;
@@ -93,7 +93,28 @@ namespace BusinessLogicLayer.Services
 
         public IEnumerable<Transaction> GetExpenses(Account sender)
         {
-            return _transactionService.GetExpensesByAcount(sender);
+            return _transactionService.GetExpensesByAccount(sender);
+        }
+
+        public Dictionary<string, decimal> GetCategories(Account account)
+        {
+            IEnumerable<Transaction> Transactions = _transactionService.GetAllTransactionsByAccount(account);
+            Dictionary<string, decimal> categories = new Dictionary<string, decimal>();
+            foreach(Transaction transaction in Transactions)
+            {
+                string category = transaction.Category;
+                
+                if (categories.ContainsKey(category))
+                {
+                    categories[category] += transaction.Amount;
+                }
+                else
+                {
+                    categories.Add(category, transaction.Amount);
+                }
+            }
+
+            return categories;
         }
     }
 }

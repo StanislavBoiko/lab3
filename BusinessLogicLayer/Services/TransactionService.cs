@@ -36,5 +36,11 @@ namespace BusinessLogicLayer.Services
         {
             return _uow.TransactionRepo.Get(t => t.SenderId == sender.Id);
         }
+
+        public IEnumerable<Transaction> GetAllTransactionsByAccount(Account account)
+        {
+            return _uow.TransactionRepo.Get(t => t.RecipientId == account.Id || t.SenderId == account.Id);
+        }
+        
     }
 }

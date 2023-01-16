@@ -12,7 +12,8 @@ namespace BusinessLogicLayer.Services
         void CreateTransaction(Transaction transaction);
         Transaction GetTransactionById(int transactionId);
         IEnumerable<Transaction> GetIncomesByAccount(Account recipient);
-        IEnumerable<Transaction> GetExpensesByAcount(Account sender);
+        IEnumerable<Transaction> GetExpensesByAccount(Account sender);
 
+        IEnumerable<Transaction> GetAllTransactionsByAccount(Account account);
     }
 }

@@ -11,7 +11,7 @@ public class Transaction
     public Account? Recipient { get; set; }
     public int? RecipientId { get; set; }
     
-    public string? Category { get; set; }
+    public string Category { get; set; }
 
   
 }
