@@ -24,7 +24,7 @@ namespace BusinessLogicLayer.Services
             _uow.Save();
         }
 
-        public Account GetAccountById(Guid id)
+        public Account GetAccountById(int id)
         {
             return _uow.AccountRepo.GetById(id);
         }
@@ -47,5 +47,7 @@ namespace BusinessLogicLayer.Services
             _uow.AccountRepo.Update(account);
             _uow.Save();
         }
+
+
     }
 }

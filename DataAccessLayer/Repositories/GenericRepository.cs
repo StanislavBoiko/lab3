@@ -16,7 +16,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
         _dbSet = context.Set<T>();
     }
 
-    public T GetById(Guid id)
+    public T GetById(int id)
     {
         return _dbSet.Find(id);
     }

@@ -4,7 +4,7 @@ namespace DataAccessLayer.Repositories;
 
 public interface IRepository<T> where T : class
 {
-    T GetById(Guid id);
+    T GetById(int id);
     IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>,
         IOrderedQueryable<T>> orderBy = null,
         string includeProperties = "");

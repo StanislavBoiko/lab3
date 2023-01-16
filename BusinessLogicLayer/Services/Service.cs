@@ -27,7 +27,6 @@ namespace BusinessLogicLayer.Services
                 Category = Category, 
                 Sender = sender,
                 SenderId = sender.Id,
-                DateTime = DateTime.UtcNow 
             };
 
             sender.CurrentBalance -= amount;
@@ -45,7 +44,6 @@ namespace BusinessLogicLayer.Services
                 Category = Category,
                 Recipient = recipient,
                 RecipientId = recipient.Id,
-                DateTime = DateTime.UtcNow
             };
 
             recipient.CurrentBalance += amount;
@@ -86,6 +84,16 @@ namespace BusinessLogicLayer.Services
         public void AddAccount(Account account)
         {
             _accountService.AddAccount(account);
+        }
+
+        public IEnumerable<Transaction> GetIncomes(Account recipient)
+        {
+            return _transactionService.GetIncomesByAccount(recipient);
+        }
+
+        public IEnumerable<Transaction> GetExpenses(Account sender)
+        {
+            return _transactionService.GetExpensesByAcount(sender);
         }
     }
 }

@@ -22,9 +22,19 @@ namespace BusinessLogicLayer.Services
             _uow.Save();
         }
 
-        public Transaction GetTransactionById(Guid transactionId)
+        public Transaction GetTransactionById(int transactionId)
         {
             return _uow.TransactionRepo.GetById(transactionId);
+        }
+
+        public IEnumerable<Transaction> GetIncomesByAccount(Account recipient) 
+        {
+            return _uow.TransactionRepo.Get(t => t.RecipientId== recipient.Id);
+        }
+
+        public IEnumerable<Transaction> GetExpensesByAccount(Account sender)
+        {
+            return _uow.TransactionRepo.Get(t => t.SenderId == sender.Id);
         }
     }
 }

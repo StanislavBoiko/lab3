@@ -10,7 +10,9 @@ namespace BusinessLogicLayer.Services
     public interface ITransactionService
     {
         void CreateTransaction(Transaction transaction);
-        Transaction GetTransactionById(Guid transactionId);
+        Transaction GetTransactionById(int transactionId);
+        IEnumerable<Transaction> GetIncomesByAccount(Account recipient);
+        IEnumerable<Transaction> GetExpensesByAcount(Account sender);
 
     }
 }

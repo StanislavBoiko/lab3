@@ -125,12 +125,23 @@ namespace PresentationLayer
             Console.WriteLine("Creating account");
             Console.WriteLine("Enter account name: ");
             string input = Console.ReadLine();
-            _service.AddAccount
+            Account account = new Account
+            {
+                CurrentBalance = 0,
+                Name = input
+            };
+            _service.AddAccount(account);
         }
 
         private void DisplayTransactions(Account current)
         {
-            //todo
+            bool looping = true;
+            while (looping)
+            {
+                Console.WriteLine("Enter 1 to see incoming transactions");
+                Console.WriteLine("Enter 2 to see outcoming transactions");
+
+            }
         }
 
         private void DisplayCategories(Account current)
