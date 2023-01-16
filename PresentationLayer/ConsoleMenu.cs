@@ -161,22 +161,82 @@ namespace PresentationLayer
 
         private void AddIncome(Account current)
         {
-            //todo
+            Console.WriteLine("Adding income");
+            Console.WriteLine("Enter the category of income");
+            string input = Console.ReadLine();
+            Console.WriteLine("Enter amount");
+            decimal amount;
+            decimal.TryParse(Console.ReadLine(), out amount);
+            _service.AddIncome(current, input, amount);
         }
 
         private void AddExpense(Account current)
         {
-            //todo
+            Console.WriteLine("Adding expense");
+            Console.WriteLine("Enter the category of expense");
+            string input = Console.ReadLine();
+            Console.WriteLine("Enter amount");
+            decimal amount;
+            decimal.TryParse(Console.ReadLine(), out amount);
+            _service.AddIncome(current, input, - amount);
         }
 
         private void TransferBetweenAccounts(Account current)
         {
-            //todo
+            Account recipient = default;
+            Console.WriteLine("Transferring to another account");
+            Console.WriteLine("Select an account you want to transfer money to");
+            List <Account> accounts = _service.GetOtherAccounts(current).ToList();
+            int counter = 1;
+            foreach (Account account in accounts)
+            {
+                Console.WriteLine(counter + ". Acccount " + account.Name);
+                Console.WriteLine("Current balance: " + account.CurrentBalance);
+                counter++;
+            }
+
+            bool looping = true;
+            while (true)
+            {
+                Console.WriteLine("Enter the corresponding account number");
+                Console.WriteLine("0 to go back");
+                int input;
+                bool parsedSuccessfully = int.TryParse(Console.ReadLine(), out input);
+                if (parsedSuccessfully)
+                {
+                    if (input == 0)
+                    {
+                        break;
+                    }
+                    recipient = accounts[input - 1];
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, try again");
+                }
+
+                while (true)
+                {
+                    Console.WriteLine("Enter the amount of money you want to transfer");
+                    decimal amount;
+                    bool success = decimal.TryParse(Console.ReadLine(), out amount);
+                    if (success)
+                    {
+                        if (amount <= 0)
+                        {
+                            Console.WriteLine("Amount of transferred money should be greater than zero");
+                        }
+                        _service.TransferBetweenAccounts(current, recipient, amount);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input, try again");
+                    }
+                }
+            }
         }
 
-        private void DeleteAccount(Account current)
-        {
-            //todo
-        }
+
     }
 }

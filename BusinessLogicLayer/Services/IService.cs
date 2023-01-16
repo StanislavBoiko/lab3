@@ -10,7 +10,7 @@ namespace BusinessLogicLayer.Services
     public interface IService
     {
         IEnumerable<Account> GetAllAccounts();
-        Account GetAccountById(Guid id);
+        Account GetAccountById(int id);
         void AddIncome(Account recipient, string Category, decimal amount);
         void AddExpense(Account sender, string Category, decimal amount);
         void TransferBetweenAccounts(Account sender, Account recipient, decimal amount);
@@ -20,6 +20,6 @@ namespace BusinessLogicLayer.Services
 
         Dictionary<string, decimal> GetCategories(Account account);
 
-
+        IEnumerable<Account> GetOtherAccounts(Account account);
     }
 }

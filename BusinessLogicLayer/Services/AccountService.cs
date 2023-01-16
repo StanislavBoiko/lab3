@@ -50,6 +50,9 @@ namespace BusinessLogicLayer.Services
             _uow.Save();
         }
 
-
+        public IEnumerable<Account> getOtherAccounts(Account account)
+        {
+            return _uow.AccountRepo.Get(a => !a.Equals(account));
+        }
     }
 }

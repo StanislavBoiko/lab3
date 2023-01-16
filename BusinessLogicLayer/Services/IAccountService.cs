@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.Services
         void UpdateAccount(Account account);
         Account GetAccountById(int id);
         IEnumerable<Account> GetAllAccounts();
+        IEnumerable<Account> getOtherAccounts(Account account);
 
     }
 }
