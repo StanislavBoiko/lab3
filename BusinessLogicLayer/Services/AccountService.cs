@@ -29,12 +29,14 @@ namespace BusinessLogicLayer.Services
             return _uow.AccountRepo.GetById(id);
         }
 
+        
+
         public IEnumerable<Account> GetAllAccounts()
         {
             return _uow.AccountRepo.Get(includeProperties: "Transactions");
         }
 
-        public void RemoveAccount(Guid id)
+        public void RemoveAccount(int id)
         {
             _uow.AccountRepo.Delete(id);
             _uow.Save();

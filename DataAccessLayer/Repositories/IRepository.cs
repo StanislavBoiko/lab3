@@ -10,5 +10,5 @@ public interface IRepository<T> where T : class
         string includeProperties = "");
     void Create(T item);
     void Update(T item);
-    void Delete(Guid id);
+    void Delete(int id);
 }
