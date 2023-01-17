@@ -19,6 +19,7 @@ namespace BusinessLogicLayer.Services
         IEnumerable<Transaction> GetExpenses(Account sender);
 
         Dictionary<string, decimal> GetCategories(Account account);
+        IEnumerable<Account> GetOtherAccounts(Account account);
 
 
     }

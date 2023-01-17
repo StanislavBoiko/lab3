@@ -116,5 +116,10 @@ namespace BusinessLogicLayer.Services
 
             return categories;
         }
+
+        public IEnumerable<Account> GetOtherAccounts(Account account)
+        {
+            return _accountService.getOtherAccounts(account);
+        }
     }
 }
