@@ -51,7 +51,7 @@ namespace BusinessLogicLayer.Services
             _accountService.UpdateAccount(recipient);
         }
 
-        public Account GetAccountById(Guid id)
+        public Account GetAccountById(int id)
         {
             return _accountService.GetAccountById(id);
         }

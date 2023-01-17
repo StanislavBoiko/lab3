@@ -58,7 +58,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
         _dbSet.Entry(item).State= EntityState.Modified;
     }
 
-    public void Delete(Guid id)
+    public void Delete(int id)
     {
         T item = _dbSet.Find(id);
         if(item != null)
