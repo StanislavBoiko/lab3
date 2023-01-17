@@ -8,6 +8,8 @@ public class Account
     public int Id { get; set; }
     public decimal CurrentBalance { get; set; }
     public string Name { get; set; }
-   
+  
+    public IEnumerable<Transaction> Incoming { get; set; }
+    public IEnumerable<Transaction> Outgoing { get; set; }
 
 }

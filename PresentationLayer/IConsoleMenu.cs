@@ -9,5 +9,6 @@ namespace PresentationLayer
     public interface IConsoleMenu 
     {
         void Start();
+        
     }
 }

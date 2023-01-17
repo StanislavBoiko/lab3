@@ -20,7 +20,5 @@ namespace BusinessLogicLayer.Services
 
         Dictionary<string, decimal> GetCategories(Account account);
         IEnumerable<Account> GetOtherAccounts(Account account);
-
-        IEnumerable<Account> GetOtherAccounts(Account account);
     }
 }

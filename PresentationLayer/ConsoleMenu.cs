@@ -12,7 +12,9 @@ namespace PresentationLayer
     public class ConsoleMenu : IConsoleMenu
     {
         private IService _service;
-        public ConsoleMenu(IService service) {
+        public ConsoleMenu(IService service)
+        {
+            _service = service;
         }
         public void Start()
         {
