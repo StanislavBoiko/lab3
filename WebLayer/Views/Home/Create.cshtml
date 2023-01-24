@@ -1,0 +1,23 @@
+@model AccountViewModel
+@{
+    ViewData["Title"] = "Account Creation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Account Creation</h2>
+            <hr/>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 150px"><i class="bi bi-check-circle"></i> Create</button>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary"><i class="bi bi-box-arrow-left"></i> Back</a>
+    </div>
+</form>
+
