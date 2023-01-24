@@ -28,5 +28,20 @@ public class HomeController : Controller
 
         return View(accounts);
     }
+
+    //GET
+    public IActionResult Create()
+    {
+        return View();
+    }
+    
+    //POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Account account)
+    {
+        _service.AddAccount(account);
+        return RedirectToAction("Index");
+    }
     
 }
