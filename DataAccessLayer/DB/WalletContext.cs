@@ -10,10 +10,9 @@ namespace DataAccessLayer.DB
 {
     public class WalletContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public WalletContext(DbContextOptions<WalletContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(
-                "Server=localhost;Database=WalletDB;Trusted_Connection=True;TrustServerCertificate=True");
+            
         }
 
 

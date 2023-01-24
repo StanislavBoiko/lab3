@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Services
 {
-    internal class TransactionService : ITransactionService
+    public class TransactionService : ITransactionService
     {
         internal IUnitOfWork _uow;
         public TransactionService(IUnitOfWork uow)

@@ -16,8 +16,11 @@ namespace PresentationLayer
         {
             _service = service;
         }
+        public ConsoleMenu(){}
+        
         public void Start()
         {
+            Console.WriteLine("trigger");
             while (true) {
                 Console.WriteLine("Wallet application");
                 Console.WriteLine("Enter 1 to see available accounts");
@@ -172,7 +175,15 @@ namespace PresentationLayer
             Dictionary<string, decimal> categories = _service.GetCategories(current);
             foreach (KeyValuePair<string, decimal> entry in categories)
             {
-
+                Console.WriteLine(entry.Key);
+                if (entry.Value > 0)
+                {
+                    Console.WriteLine("Received in total: " + entry.Value);
+                }
+                else
+                {
+                    Console.WriteLine("Spent in total: " + (- entry.Value));
+                }
             }
         }
 
@@ -195,7 +206,7 @@ namespace PresentationLayer
             Console.WriteLine("Enter amount");
             decimal amount;
             decimal.TryParse(Console.ReadLine(), out amount);
-            _service.AddIncome(current, input, -amount);
+            _service.AddExpense(current, input, amount);
         }
 
         private void TransferBetweenAccounts(Account current)

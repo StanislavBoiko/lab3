@@ -98,9 +98,9 @@ namespace BusinessLogicLayer.Services
 
         public Dictionary<string, decimal> GetCategories(Account account)
         {
-            IEnumerable<Transaction> Transactions = _transactionService.GetAllTransactionsByAccount(account);
+            IEnumerable<Transaction> Incomes = _transactionService.GetIncomesByAccount(account);
             Dictionary<string, decimal> categories = new Dictionary<string, decimal>();
-            foreach(Transaction transaction in Transactions)
+            foreach(Transaction transaction in Incomes)
             {
                 string category = transaction.Category;
                 
@@ -111,6 +111,21 @@ namespace BusinessLogicLayer.Services
                 else
                 {
                     categories.Add(category, transaction.Amount);
+                }
+            }
+
+            IEnumerable<Transaction> Expenses = _transactionService.GetExpensesByAccount(account);
+            foreach (Transaction transaction in Expenses)
+            {
+                string category = transaction.Category;
+                
+                if (categories.ContainsKey(category))
+                {
+                    categories[category] -= transaction.Amount;
+                }
+                else
+                {
+                    categories.Add(category, - transaction.Amount);
                 }
             }
 

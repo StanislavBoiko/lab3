@@ -33,7 +33,7 @@ namespace BusinessLogicLayer.Services
 
         public IEnumerable<Account> GetAllAccounts()
         {
-            return _uow.AccountRepo.Get(includeProperties: "Transactions");
+            return _uow.AccountRepo.Get();
         }
 
         public void RemoveAccount(int id)

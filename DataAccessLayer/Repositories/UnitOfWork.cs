@@ -14,35 +14,31 @@ namespace DataAccessLayer.Repositories
         internal IRepository<Account> _accountRepo;
         internal IRepository<Transaction> _transactionRepo;
 
+        public UnitOfWork(WalletContext context, IRepository<Account> accountRepo,
+            IRepository<Transaction> transactionRepo)
+        {
+            _context = context;
+            _accountRepo = accountRepo;
+            _transactionRepo = transactionRepo;
+        }
+
         public IRepository<Account> AccountRepo
         {
             get
             {
-                if(_accountRepo == null)
-                {
-                    _accountRepo = new GenericRepository<Account>(_context);
-                }
                 return _accountRepo;
-
             }
         }
-
-       
 
         public IRepository<Transaction> TransactionRepo
         {
             get
             {
-                if(_transactionRepo== null)
-                {
-                    _transactionRepo= new GenericRepository<Transaction>(_context); 
-
-                }
                 return _transactionRepo;
             }
         }
 
-        
+
 
 
         public void Save()
