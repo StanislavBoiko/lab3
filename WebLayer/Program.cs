@@ -4,6 +4,7 @@ using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 using PresentationLayer;
+using Microsoft.EntityFrameworkCore.Proxies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,8 @@ builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<IConsoleMenu, ConsoleMenu>();
 builder.Services.AddDbContext<WalletContext>(options =>
-    options.UseSqlServer(
+    options.UseLazyLoadingProxies()
+    .UseSqlServer(
         "Server=localhost;Database=WalletDB;Trusted_Connection=True;TrustServerCertificate=True"));
 var app = builder.Build();
 

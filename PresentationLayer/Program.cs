@@ -21,7 +21,8 @@ using Microsoft.Extensions.Hosting;
         services.AddScoped<IService, Service>();
         services.AddScoped<IConsoleMenu, ConsoleMenu>();
         services.AddDbContext<WalletContext>(options =>
-            options.UseSqlServer(
+        options.UseLazyLoadingProxies()
+            .UseSqlServer(
                 "Server=localhost;Database=WalletDB;Trusted_Connection=True;TrustServerCertificate=True"));
     }).Build();
     

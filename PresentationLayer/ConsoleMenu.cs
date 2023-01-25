@@ -129,7 +129,6 @@ namespace PresentationLayer
             string input = Console.ReadLine();
             Account account = new Account
             {
-                CurrentBalance = 0,
                 Name = input
             };
             _service.AddAccount(account);

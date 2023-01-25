@@ -79,8 +79,50 @@ public class HomeController : Controller
         }
         return View();
     }
+
+    public IActionResult CreateIncome()
+    {
+        IEnumerable<SelectListItem> accounts = _service.GetAllAccounts().Select(
+            a => new SelectListItem(a.Name, a.Id.ToString()));
+        ViewBag.accounts = accounts;
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult CreateIncome(IncomeViewModel incomeViewModel)
+    {
+        if (ModelState.IsValid && incomeViewModel.RecipientId != null)
+        {
+
+            _service.AddIncome(_service.GetAccountById(incomeViewModel.RecipientId), incomeViewModel.Category, incomeViewModel.Amount);
+            return RedirectToAction("Index");
+        }
+
+        return View();
+    }
     
-    
-    
-    
+    public IActionResult CreateExpense()
+    {
+        IEnumerable<SelectListItem> accounts = _service.GetAllAccounts().Select(
+            a => new SelectListItem(a.Name, a.Id.ToString()));
+        ViewBag.accounts = accounts;
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult CreateExpense(ExpenseViewModel expenseViewModel)
+    {
+        if (ModelState.IsValid && expenseViewModel.SenderId != null)
+        {
+
+            _service.AddExpense(_service.GetAccountById(expenseViewModel.SenderId), expenseViewModel.Category, expenseViewModel.Amount);
+            return RedirectToAction("Index");
+        }
+
+        return View();
+    }
+
+
+
+
 }

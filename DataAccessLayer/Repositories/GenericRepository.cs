@@ -21,31 +21,9 @@ public class GenericRepository<T> : IRepository<T> where T : class
         return _dbSet.Find(id);
     }
 
-    public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>,
-        IOrderedQueryable<T>> orderBy = null,
-        string includeProperties = "")
+    public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null)
     {
-        IQueryable<T> query = _dbSet;
-
-        if (filter != null)
-        {
-            query = query.Where(filter);
-        }
-
-        foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-        {
-            query = query.Include(includeProperty);
-        }
-
-        if (orderBy != null)
-        {
-            return orderBy(query).ToList();
-        }
-        else
-        {
-            return query;
-        }
+        throw new NotImplementedException();
     }
 
     public void Create(T item)

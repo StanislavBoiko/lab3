@@ -28,10 +28,8 @@ namespace BusinessLogicLayer.Services
                 Sender = sender,
                 SenderId = sender.Id,
             };
-
-            sender.CurrentBalance -= amount;
+            
             _transactionService.CreateTransaction(transaction);
-            _accountService.UpdateAccount(sender);
 
         }
 
@@ -45,10 +43,8 @@ namespace BusinessLogicLayer.Services
                 Recipient = recipient,
                 RecipientId = recipient.Id,
             };
-
-            recipient.CurrentBalance += amount;
+            
             _transactionService.CreateTransaction(transaction);
-            _accountService.UpdateAccount(recipient);
         }
 
         public Account GetAccountById(int id)
@@ -73,12 +69,8 @@ namespace BusinessLogicLayer.Services
                 RecipientId = recipient.Id,
                 Category = "Transfer from " + sender.Name + " to " + recipient.Name
             };
-
-            sender.CurrentBalance -= amount;
-            recipient.CurrentBalance += amount;
+            
            _transactionService.CreateTransaction(transaction);
-            _accountService.UpdateAccount(sender);
-            _accountService.UpdateAccount(recipient);
         }
 
         public void AddAccount(Account account)
@@ -88,17 +80,17 @@ namespace BusinessLogicLayer.Services
 
         public IEnumerable<Transaction> GetIncomes(Account recipient)
         {
-            return _transactionService.GetIncomesByAccount(recipient);
+            return recipient.Incoming;
         }
 
         public IEnumerable<Transaction> GetExpenses(Account sender)
         {
-            return _transactionService.GetExpensesByAccount(sender);
+            return sender.Outgoing;
         }
 
         public Dictionary<string, decimal> GetCategories(Account account)
         {
-            IEnumerable<Transaction> Incomes = _transactionService.GetIncomesByAccount(account);
+            IEnumerable<Transaction> Incomes = account.Incoming;
             Dictionary<string, decimal> categories = new Dictionary<string, decimal>();
             foreach(Transaction transaction in Incomes)
             {
@@ -114,7 +106,7 @@ namespace BusinessLogicLayer.Services
                 }
             }
 
-            IEnumerable<Transaction> Expenses = _transactionService.GetExpensesByAccount(account);
+            IEnumerable<Transaction> Expenses = account.Outgoing;
             foreach (Transaction transaction in Expenses)
             {
                 string category = transaction.Category;

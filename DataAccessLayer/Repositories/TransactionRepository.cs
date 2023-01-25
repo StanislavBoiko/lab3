@@ -19,28 +19,21 @@ public class TransactionRepository : IRepository<Transaction>
         return _context.Transactions.Find(id);
     }
 
-    public IEnumerable<Transaction> Get(Expression<Func<Transaction, bool>> filter = null, Func<IQueryable<Transaction>, IOrderedQueryable<Transaction>> orderBy = null, string includeProperties = "")
+    public IEnumerable<Transaction> Get(Expression<Func<Transaction, bool>> filter = null)
     {
         IQueryable<Transaction> query = _context.Transactions;   
-               if (filter != null)
-               {
-                   query = query.Where(filter);
-               }
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
        
-               foreach (var includeProperty in includeProperties.Split
-                       (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-               {
-                   query = query.Include(includeProperty);
-               }
+               
+        query = query.Include(t => t.Recipient).Include(t => t.Sender).AsSplitQuery();
+               
        
-               if (orderBy != null)
-               {
-                   return orderBy(query).ToList();
-               }
-               else
-               {
-                   return query;
-               }
+              
+        return query;
+               
     }
 
     public void Create(Transaction item)

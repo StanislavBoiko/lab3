@@ -19,8 +19,7 @@ public class AccountRepository : IRepository<Account>
         return _context.Accounts.Find(id);
     }
 
-    public IEnumerable<Account> Get(Expression<Func<Account, bool>> filter = null,
-        Func<IQueryable<Account>, IOrderedQueryable<Account>> orderBy = null, string includeProperties = "")
+    public IEnumerable<Account> Get(Expression<Func<Account, bool>> filter = null)
     {
         
             IQueryable<Account> query = _context.Accounts;
@@ -30,20 +29,11 @@ public class AccountRepository : IRepository<Account>
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                         (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
+            query = query.Include(a => a.Incoming)
+                .Include(a => a.Outgoing).AsSplitQuery();
 
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query;
-            }
+
+            return query;
     }
 
     public void Create(Account item)
