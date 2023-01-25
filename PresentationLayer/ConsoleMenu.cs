@@ -266,12 +266,24 @@ namespace PresentationLayer
         }
         private void GetExpenses(Account current)
         {
-            //todo
+            IEnumerable<Transaction> expenses = _service.GetExpenses(current);
+            foreach (Transaction t in expenses)
+            {
+                Console.WriteLine(t.Category);
+                Console.WriteLine(t.Amount);
+                Console.WriteLine(t.DateTime);
+            }
         }
 
         private void GetIncomes(Account current)
         {
-            //todo
+            IEnumerable<Transaction> incomes = _service.GetIncomes(current);
+            foreach (Transaction t in incomes)
+            {
+                Console.WriteLine(t.Category);
+                Console.WriteLine(t.Amount);
+                Console.WriteLine(t.DateTime);
+            }
         }
 
 
