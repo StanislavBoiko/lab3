@@ -1,0 +1,13 @@
+@model AccountViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Name</h1>
+
+<a class="btn btn-primary" asp-action="Incomes" asp-route-id="@Model.Id"><i class="bi bi-graph-up-arrow"></i> See incomes</a>
+<a class="btn btn-primary"asp-action="Expenses" asp-route-id="@Model.Id"><i class="bi bi-graph-down-arrow"></i> See expenses</a>
+<a class="btn btn-primary"asp-action="Categories" asp-route-id="@Model.Id"><i class="bi bi-list"></i> See categories</a><br/>
+
+

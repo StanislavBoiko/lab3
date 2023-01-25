@@ -1,0 +1,33 @@
+@model Dictionary<string, decimal>
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Categories</h1>
+<table class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+    <tr>
+        <th>
+            Category
+        </th>
+        <th>
+            Total amount
+        </th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var entry in Model)
+    {
+        <tr>
+            <td>
+                @entry.Key
+            </td>
+            <td>
+                @entry.Value
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

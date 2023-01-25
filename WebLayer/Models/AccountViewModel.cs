@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace WebLayer.Models;
 
 public class AccountViewModel
@@ -6,6 +8,5 @@ public class AccountViewModel
     public decimal CurrentBalance { get; set; }
     
     public string Name { get; set; }
-  
     
 }
