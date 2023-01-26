@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using DataAccessLayer.DB;
 using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories;
 
@@ -21,21 +22,39 @@ public class CategoryRepository : IRepository<Category>
 
     public IEnumerable<Category> Get(Expression<Func<Category, bool>> filter = null)
     {
-        throw new NotImplementedException();
+        IQueryable<Category> query = _context.Categories;
+
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
+        query = query.Include(c => c.Transactions);
+
+
+        return query;
     }
 
     public void Create(Category item)
     {
-        throw new NotImplementedException();
+        _context.Categories.Add(item);
     }
 
     public void Update(Category item)
     {
-        throw new NotImplementedException();
+        _context.Categories.Update(item);
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
+
+        if (category != null)
+        {
+            _context.Categories.Remove(category);
+        }
     }
+    
+    
+    
 }

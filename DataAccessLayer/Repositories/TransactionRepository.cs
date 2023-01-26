@@ -54,4 +54,10 @@ public class TransactionRepository : IRepository<Transaction>
             _context.Remove(item);
         }
     }
+
+    public IQueryable GroupTransactionsByCategory(int accountId)
+    {
+        var query = _context.Transactions.Where(t => t.SenderId == accountId || t.RecipientId == accountId)
+            .GroupBy(t => t.CategoryId).Select(t => )
+    }
 }

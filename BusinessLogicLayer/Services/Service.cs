@@ -11,14 +11,16 @@ namespace BusinessLogicLayer.Services
     {
         internal IAccountService _accountService;
         internal ITransactionService _transactionService;
+        internal ICategoryService _categoryService;
 
-        public Service (IAccountService accountService, ITransactionService transactionService)
+        public Service (IAccountService accountService, ITransactionService transactionService, ICategoryService categoryService)
         {
             _accountService = accountService;
             _transactionService = transactionService;
+            _categoryService = categoryService;
         }
 
-        public void AddExpense(Account sender, string Category, decimal amount)
+        public void AddExpense(Account sender, Category Category, decimal amount)
         {
             Transaction transaction = new Transaction
             { 
@@ -33,7 +35,7 @@ namespace BusinessLogicLayer.Services
 
         }
 
-        public void AddIncome(Account recipient, string Category, decimal amount)
+        public void AddIncome(Account recipient, Category Category, decimal amount)
         {
             Transaction transaction = new Transaction
             {
@@ -67,7 +69,6 @@ namespace BusinessLogicLayer.Services
                 SenderId = sender.Id,
                 Recipient = recipient,
                 RecipientId = recipient.Id,
-                Category = "Transfer from " + sender.Name + " to " + recipient.Name
             };
             
            _transactionService.CreateTransaction(transaction);
@@ -127,6 +128,11 @@ namespace BusinessLogicLayer.Services
         public IEnumerable<Account> GetOtherAccounts(Account account)
         {
             return _accountService.getOtherAccounts(account);
+        }
+
+        public void AddCategory(Category category)
+        {
+            _categoryService.AddCategory(category);
         }
     }
 }

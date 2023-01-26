@@ -13,13 +13,15 @@ namespace DataAccessLayer.Repositories
         internal WalletContext _context;
         internal IRepository<Account> _accountRepo;
         internal IRepository<Transaction> _transactionRepo;
+        internal IRepository<Category> _categoryRepo;
 
         public UnitOfWork(WalletContext context, IRepository<Account> accountRepo,
-            IRepository<Transaction> transactionRepo)
+            IRepository<Transaction> transactionRepo, IRepository<Category> categoryRepo)
         {
             _context = context;
             _accountRepo = accountRepo;
             _transactionRepo = transactionRepo;
+            _categoryRepo = categoryRepo;
         }
 
         public IRepository<Account> AccountRepo
@@ -35,6 +37,14 @@ namespace DataAccessLayer.Repositories
             get
             {
                 return _transactionRepo;
+            }
+        }
+
+        public IRepository<Category> CategoryRepo
+        {
+            get
+            {
+                return _categoryRepo;
             }
         }
 

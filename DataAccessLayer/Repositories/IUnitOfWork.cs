@@ -11,6 +11,7 @@ namespace DataAccessLayer.Repositories
     {
         IRepository<Account> AccountRepo { get; }
         IRepository<Transaction> TransactionRepo { get; }
+        IRepository<Category> CategoryRepo { get; }
 
         void Save();
     }
