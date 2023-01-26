@@ -36,11 +36,7 @@ namespace BusinessLogicLayer.Services
             return _uow.AccountRepo.Get();
         }
 
-        public void RemoveAccount(int id)
-        {
-            _uow.AccountRepo.Delete(id);
-            _uow.Save();
-        }
+        
 
 
 

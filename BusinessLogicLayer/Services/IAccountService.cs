@@ -10,7 +10,6 @@ namespace BusinessLogicLayer.Services
     public interface IAccountService
     {
         void AddAccount(Account account);
-        void RemoveAccount(int id);
         void UpdateAccount(Account account);
         Account GetAccountById(int id);
         IEnumerable<Account> GetAllAccounts();

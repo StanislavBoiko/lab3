@@ -28,7 +28,7 @@ public class Account
 
     public string Name { get; set; }
   
-    public virtual IEnumerable<Transaction> Incoming { get; set; }
-    public virtual IEnumerable<Transaction> Outgoing { get; set; }
+    public  IEnumerable<Transaction> Incoming { get; set; }
+    public  IEnumerable<Transaction> Outgoing { get; set; }
 
 }

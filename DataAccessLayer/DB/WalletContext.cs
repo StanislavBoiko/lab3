@@ -18,14 +18,25 @@ namespace DataAccessLayer.DB
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>().HasKey(a => a.Id);
             modelBuilder.Entity<Transaction>().HasKey(t => t.Id);
-            modelBuilder.Entity<Transaction>().HasOne<Account>(t => t.Sender).WithMany(a => a.Outgoing).HasForeignKey(t => t.SenderId);
-            modelBuilder.Entity<Transaction>().HasOne<Account>(t => t.Recipient).WithMany(a => a.Incoming).HasForeignKey(t => t.RecipientId);
+            modelBuilder.Entity<Transaction>().HasOne<Account>(t => t.Sender)
+                .WithMany(a => a.Outgoing)
+                .HasForeignKey(t => t.SenderId);
+            modelBuilder.Entity<Transaction>().HasOne<Account>(t => t.Recipient)
+                .WithMany(a => a.Incoming)
+                .HasForeignKey(t => t.RecipientId);
             modelBuilder.Entity<Account>().Property(a => a.Name).IsRequired();
+            modelBuilder.Entity<Category>().HasKey(c => c.Id);
+            modelBuilder.Entity<Category>().HasMany<Transaction>(c => c.Transactions)
+                .WithOne(t => t.Category)
+                .HasForeignKey(t => t.CategoryId);
+
 
         }
     }
