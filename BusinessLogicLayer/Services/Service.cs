@@ -20,13 +20,13 @@ namespace BusinessLogicLayer.Services
             _categoryService = categoryService;
         }
 
-        public void AddExpense(Account sender, Category Category, decimal amount)
+        public void AddExpense(Account sender, Category category, decimal amount)
         {
             Transaction transaction = new Transaction
             { 
                 Id = Guid.NewGuid(),
                 Amount = amount, 
-                Category = Category, 
+                Category = category, 
                 Sender = sender,
                 SenderId = sender.Id,
             };
@@ -35,13 +35,13 @@ namespace BusinessLogicLayer.Services
 
         }
 
-        public void AddIncome(Account recipient, Category Category, decimal amount)
+        public void AddIncome(Account recipient, Category category, decimal amount)
         {
             Transaction transaction = new Transaction
             {
                 Id = Guid.NewGuid(),
                 Amount = amount,
-                Category = Category,
+                Category = category,
                 Recipient = recipient,
                 RecipientId = recipient.Id,
             };
@@ -89,13 +89,13 @@ namespace BusinessLogicLayer.Services
             return sender.Outgoing;
         }
 
-        public Dictionary<string, decimal> GetCategories(Account account)
+        public Dictionary<Category, decimal> GetCategories(Account account)
         {
             IEnumerable<Transaction> Incomes = account.Incoming;
-            Dictionary<string, decimal> categories = new Dictionary<string, decimal>();
+            Dictionary<Category, decimal> categories = new Dictionary<Category, decimal>();
             foreach(Transaction transaction in Incomes)
             {
-                string category = transaction.Category;
+                Category category = transaction.Category;
                 
                 if (categories.ContainsKey(category))
                 {
@@ -110,7 +110,7 @@ namespace BusinessLogicLayer.Services
             IEnumerable<Transaction> Expenses = account.Outgoing;
             foreach (Transaction transaction in Expenses)
             {
-                string category = transaction.Category;
+                Category category = transaction.Category;
                 
                 if (categories.ContainsKey(category))
                 {

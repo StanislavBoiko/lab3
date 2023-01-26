@@ -171,10 +171,10 @@ namespace PresentationLayer
 
         private void DisplayCategories(Account current)
         {
-            Dictionary<string, decimal> categories = _service.GetCategories(current);
-            foreach (KeyValuePair<string, decimal> entry in categories)
+            Dictionary<Category, decimal> categories = _service.GetCategories(current);
+            foreach (KeyValuePair<Category, decimal> entry in categories)
             {
-                Console.WriteLine(entry.Key);
+                Console.WriteLine(entry.Key.Name);
                 if (entry.Value > 0)
                 {
                     Console.WriteLine("Received in total: " + entry.Value);
@@ -194,7 +194,11 @@ namespace PresentationLayer
             Console.WriteLine("Enter amount");
             decimal amount;
             decimal.TryParse(Console.ReadLine(), out amount);
-            _service.AddIncome(current, input, amount);
+            Category category = new Category
+            {
+                Name = input
+            };
+            _service.AddIncome(current, category, amount);
         }
 
         private void AddExpense(Account current)
@@ -205,7 +209,11 @@ namespace PresentationLayer
             Console.WriteLine("Enter amount");
             decimal amount;
             decimal.TryParse(Console.ReadLine(), out amount);
-            _service.AddExpense(current, input, amount);
+            Category category = new Category
+            {
+                Name = input
+            };
+            _service.AddExpense(current, category, amount);
         }
 
         private void TransferBetweenAccounts(Account current)

@@ -28,7 +28,9 @@ public class TransactionRepository : IRepository<Transaction>
         }
        
                
-        query = query.Include(t => t.Recipient).Include(t => t.Sender).AsSplitQuery();
+        query = query.Include(t => t.Recipient)
+            .Include(t => t.Sender)
+            .Include(t => t.Category).AsSplitQuery();
                
        
               
@@ -55,9 +57,5 @@ public class TransactionRepository : IRepository<Transaction>
         }
     }
 
-    public IQueryable GroupTransactionsByCategory(int accountId)
-    {
-        var query = _context.Transactions.Where(t => t.SenderId == accountId || t.RecipientId == accountId)
-            .GroupBy(t => t.CategoryId).Select(t => )
-    }
+    
 }

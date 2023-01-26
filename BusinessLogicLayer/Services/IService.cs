@@ -11,14 +11,14 @@ namespace BusinessLogicLayer.Services
     {
         IEnumerable<Account> GetAllAccounts();
         Account GetAccountById(int id);
-        void AddIncome(Account recipient, string Category, decimal amount);
-        void AddExpense(Account sender, string Category, decimal amount);
+        void AddIncome(Account recipient, Category Category, decimal amount);
+        void AddExpense(Account sender, Category Category, decimal amount);
         void TransferBetweenAccounts(Account sender, Account recipient, decimal amount);
         void AddAccount(Account account);
         IEnumerable<Transaction> GetIncomes(Account recipient);
         IEnumerable<Transaction> GetExpenses(Account sender);
 
-        Dictionary<string, decimal> GetCategories(Account account);
+        Dictionary<Category, decimal> GetCategories(Account account);
         IEnumerable<Account> GetOtherAccounts(Account account);
     }
 }
