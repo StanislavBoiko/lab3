@@ -35,16 +35,7 @@ namespace BusinessLogicLayer.Services
         {
             return _uow.AccountRepo.Get();
         }
-
         
-
-
-
-        public void UpdateAccount(Account account)
-        {
-            _uow.AccountRepo.Update(account);
-            _uow.Save();
-        }
 
         public IEnumerable<Account> getOtherAccounts(Account account)
         {

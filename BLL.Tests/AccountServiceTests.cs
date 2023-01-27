@@ -7,32 +7,24 @@ namespace BLL.Tests;
 
 public class AccountServiceTests
 {
-    private Mock<IRepository<Account>> _mockRepo;
-    private IAccountService _service;
-    private Mock<IUnitOfWork> _mockUow;
 
-    public AccountServiceTests()
-    {
-        _mockRepo = new Mock<IRepository<Account>>();
-        _mockUow = new Mock<IUnitOfWork>();
-        _service = new AccountService(_mockUow.Object);
-    }
-    
     [Fact]
     public void GetAllAccounts_ValidCall()
     {
         using (var mock = AutoMock.GetLoose())
         {
-            mock.Mock<IUnitOfWork>().Setup(u => u.AccountRepo.Get(null)).Returns(GetSampleAccounts());
+            mock.Mock<IUnitOfWork>().
+                Setup(u => u.AccountRepo.Get(null)).Returns(GetSampleAccounts());
             var cls = mock.Create<AccountService>();
             var expected = GetSampleAccounts();
-            var actual = cls.GetAllAccounts();
+            var actual = cls.GetAllAccounts().ToList();
             
             Assert.True(actual != null);
             Assert.Equal(expected.Count, actual.Count());
             for (int i = 0; i < expected.Count; i++)
             {
-                ;
+                Assert.Equal(expected[i].Id, actual[i].Id);
+                Assert.Equal(expected[i].Name, actual[i].Name);
             }
             
             
@@ -40,7 +32,63 @@ public class AccountServiceTests
         }
     }
 
-    private IEnumerable<Account> GetSampleAccounts()
+    [Fact]
+    public void CreateAccount_ShouldBeCalledOnlyOnce()
+    {
+        using (var mock = AutoMock.GetLoose())
+        {
+            Account account = GetSampleAccounts()[0];
+
+            mock.Mock<IUnitOfWork>()
+                .Setup(x => x.AccountRepo.Create(account));
+            mock.Mock<IUnitOfWork>().Setup(x => x.Save());
+
+            var cls = mock.Create<AccountService>();
+            cls.AddAccount(account);
+            
+            mock.Mock<IUnitOfWork>().Verify(x => x.AccountRepo.Create(account), Times.Exactly(1));
+            mock.Mock<IUnitOfWork>().Verify(x => x.Save(), Times.Exactly(1));
+            
+        }
+
+    }
+
+    [Fact]
+    public void GetAccountById_ValidCall()
+    {
+        using (var mock = AutoMock.GetLoose())
+        {
+            mock.Mock<IUnitOfWork>()
+                .Setup(x => x.AccountRepo.GetById(1)).Returns(GetSampleAccounts()[0]);
+            var cls = mock.Create<AccountService>();
+            cls.GetAccountById(1);
+            
+            mock.Mock<IUnitOfWork>().Verify(x => x.AccountRepo.GetById(1), Times.Exactly(1));
+            
+        }
+    }
+
+    [Fact]
+    public void GetOtherAccounts_ValidCall()
+    {
+        using (var mock = AutoMock.GetLoose())
+        {
+            Account account = GetSampleAccounts()[1];
+            mock.Mock<IUnitOfWork>()
+                .Setup(x => x.AccountRepo.Get(a => !a.Equals(account)));
+
+            var cls = mock.Create<AccountService>();
+            cls.getOtherAccounts(account);
+            
+            mock.Mock<IUnitOfWork>()
+                .Verify(x => 
+                    x.AccountRepo.Get(a => !a.Equals(account)), Times.Exactly(1));
+            
+            
+        }
+    } 
+
+    private List<Account> GetSampleAccounts()
     {
         List<Account> output = new List<Account>()
         {

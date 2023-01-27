@@ -23,12 +23,7 @@ public class CategoryService : ICategoryService
         _uow.CategoryRepo.Create(category);
         _uow.Save();
     }
-
-    public void UpdateCategory(Category category)
-    {
-        _uow.CategoryRepo.Update(category);
-        _uow.Save();
-    }
+    
 
     public Category GetById(int id)
     {

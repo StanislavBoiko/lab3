@@ -23,8 +23,7 @@ namespace BusinessLogicLayer.Services
         public void AddExpense(Account sender, Category category, decimal amount)
         {
             Transaction transaction = new Transaction
-            { 
-                Id = Guid.NewGuid(),
+            {
                 Amount = amount, 
                 Category = category, 
                 Sender = sender,
@@ -39,7 +38,6 @@ namespace BusinessLogicLayer.Services
         {
             Transaction transaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 Amount = amount,
                 Category = category,
                 Recipient = recipient,
@@ -63,7 +61,6 @@ namespace BusinessLogicLayer.Services
         {
             Transaction transaction = new Transaction
             {
-                Id = Guid.NewGuid(),
                 Amount = amount,
                 Sender = sender,
                 SenderId = sender.Id,
